@@ -2,6 +2,7 @@ package telran.java55.person.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import telran.java55.person.dao.PersonRepository;
 import telran.java55.person.dto.AddressDto;
+import telran.java55.person.dto.ChildDto;
+import telran.java55.person.dto.EmployeeDto;
 import telran.java55.person.dto.PersonDto;
+import telran.java55.person.model.Employee;
 import telran.java55.person.service.PersonService;
 
 @RestController
@@ -60,5 +65,26 @@ public class PersonController {
 	@DeleteMapping
 	public boolean deletePerson(@PathVariable Integer id) {
 		return personService.deletePerson(id);
+	}
+	
+	@PostMapping("/employee")
+    public EmployeeDto addEmployee(@RequestBody EmployeeDto employeeDto) {
+        return personService.addEmployee(employeeDto);
+    }
+	
+	@GetMapping("/salary/{min}/{max}")
+	public Iterable<EmployeeDto> findEmployeeBySalary(@PathVariable int min, @PathVariable int max) {
+		return personService.findEmployeeBySalary(min, max);
+	}
+
+	@PostMapping("/child")
+    public ChildDto addChild(@RequestBody ChildDto childDto) {
+        return personService.addChild(childDto);
+    }
+	
+	
+	@GetMapping("/childrens")
+	public Iterable<ChildDto> findAllChildrens() {
+		return personService.findAllChildrens();
 	}
 }

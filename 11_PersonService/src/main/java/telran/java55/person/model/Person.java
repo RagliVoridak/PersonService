@@ -18,14 +18,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
-public class Person implements Serializable{
-	private static final long serialVersionUID = -6911164310747465170L;
+public class Person {
 	@Id
 	Integer id;
 	@Setter
 	String name;
 	LocalDate birthDate;
 	@Setter
-//	@Embedded // TODO
+	@Embedded
 	Address address;
 }
